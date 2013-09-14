@@ -1,13 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>Daily Record | <%= yield(:title) %></title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
 
+
 <body>
-    <%= yield %>
+<%= render 'layouts/header' %>
+
+
+
+<div class="hero-unit">
+  <h1>Hello World</h1>
+  <p>Tagline</p>
+  <p>
+    <a class="btn btn-primary btn-large">
+      Learn more
+    </a>
+  </p>
+</div>
+
+<div class="page-header">
+  <h1>Example page header <small>Subtext for header</small></h1>
+</div>
+
+<ul class="thumbnails">
+  <li class="span4">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="">
+      <h3>Thumbnail label</h3>
+      <p>Thumbnail caption...</p>
+    </div>
+  </li>
+  ...
+</ul>
+
+
+
+<div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <!--Sidebar content-->
+        </div>
+        <div class="span10">
+          <!--Body content-->
+          <%= yield %>
+        </div>
+      </div>
+
+    </div>
 </body>
 </html>
