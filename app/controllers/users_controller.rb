@@ -22,5 +22,10 @@ class UsersController < ApplicationController
       end
   end
 
+  def all
+    @users = User.all
+    render xml: @users
+  end
+
 
 end

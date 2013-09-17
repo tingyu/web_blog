@@ -1,3 +1,4 @@
+
 <%- model_class = Post -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
@@ -5,25 +6,27 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
+
+
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= link_to post.id, post_path(post) %></td>
-        <td><%= post.title %></td>
-        <td><%= post.description %></td>
+        <td></td>
+        <td><%= link_to  post.title, user_post_path(current_user, post) %></td>
+        <td><%= truncate(post.description, length: 1000, omission: '... (continued)')%></td>
         <td><%=l post.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_post_path(post), :class => 'btn btn-mini' %>
+                      edit_user_post_path(current_user, post), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      post_path(post),
+                       user_post_path(current_user, post),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -34,20 +37,6 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_post_path,
+            new_user_post_path,
             :class => 'btn btn-primary' %>
 
-<div class="page-header">
-  <h1>Example page header <small>Subtext for header</small></h1>
-</div>
-
-<ul class="thumbnails">
-  <li class="span4">
-    <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="">
-      <h3>Thumbnail label</h3>
-      <p>Thumbnail caption...</p>
-    </div>
-  </li>
-  ...
-</ul>

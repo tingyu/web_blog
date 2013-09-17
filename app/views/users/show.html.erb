@@ -10,3 +10,35 @@
     </section>
   </aside>
 </div>
+
+<h1>
+     ssssssssssssssssssssss
+</h1>
+<img src="images.jpeg" alt="..." class="img-rounded">
+
+<h1><%= link_to "Daily Records", user_posts_path(@user) %></h1>
+<h1><%= link_to "Add Daily Records", new_user_post_path(@user) %></h1>
+
+<h2>Reminder</h2>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <p>
+<% @user.reminders.each do |reminder| %>
+<table>
+    <tr class="active">
+    <td class="active">.<%= reminder.text %></td>
+    <td class="active"><%= time_ago_in_words reminder.created_at %> ago</td>
+    <td class="active"><%= link_to "Delete Reminder", [@user, reminder], :method=> :delete, :confirm => "Are your sure?" %></td>
+    </tr>
+</table>
+<% end %>
+    </p>
+  </div>
+</div>
+
+<%= form_for [@user, @user.reminders.build] do |f| %>
+    <p><%= f.text_area :text, :size => '40x10' %></p>
+    <p><%= f.submit "Add Reminder", class: "btn btn-large btn-primary"  %></p>
+<% end %>

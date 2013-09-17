@@ -1,6 +1,20 @@
 WebBlog::Application.routes.draw do
-  resources :users
-  resources :posts
+  get "reminders/create"
+
+  get "reminders/destroy"
+
+  get "comments/create"
+
+  get "comments/destroy"
+
+  resources :users do
+    resources :reminders
+    resources :posts
+  end
+
+
+
+
 
   resources :sessions, only: [:new, :create, :destroy]
 
@@ -16,6 +30,9 @@ WebBlog::Application.routes.draw do
   match '/about', to: 'static_pages#about'
 
   match '/help', to: 'static_pages#help'
+
+  match '/api/users/all', to: 'users#all', via: 'get'
+  match '/api/posts/all', to: 'posts#all', via: 'get'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

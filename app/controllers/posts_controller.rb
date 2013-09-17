@@ -1,3 +1,5 @@
+
+
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
@@ -7,6 +9,8 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
+      format.xml { render xml: @posts }
+      format.js
     end
   end
 
@@ -18,6 +22,8 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
+      format.xml { render xml: @post }
+      format.js
     end
   end
 
@@ -26,9 +32,12 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @post }
+      format.xml { render xml: @post }
+      format.js
     end
   end
 
@@ -40,15 +49,24 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(params[:post])
+  #  @post = Post.new(params[:post])
+    @user = User.find(params[:user_id])
+    @post = @user.posts.build(params[:post])
+    @post.save
+
+    return redirect_to user_posts_path(@user)
 
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
+        format.xml { render xml: @post, status: :created, location: @post }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -62,9 +80,13 @@ class PostsController < ApplicationController
       if @post.update_attributes(params[:post])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
+        format.xml { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -75,9 +97,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
 
+    return redirect_to user_posts_path(@post.user)
+
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
+      format.xml { head :no_content }
+      format.js  { render :nothing => true }
     end
   end
 end

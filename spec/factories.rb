@@ -4,5 +4,12 @@ FactoryGirl.define do
         email "michael@example.com"
         password "foobar"
         password_confirmation "foobar"
-    end
+      end
+
+      factory :post do
+        title "Lorem ipsum"
+        description "xxxxxxxxxxxxxxxxxxxxxx"
+        user
+      end
+
 end
