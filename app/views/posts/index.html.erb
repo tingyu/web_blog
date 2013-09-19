@@ -20,7 +20,7 @@
       <tr>
         <td></td>
         <td><%= link_to  post.title, user_post_path(current_user, post) %></td>
-        <td><%= truncate(post.description, length: 1000, omission: '... (continued)')%></td>
+        <td><%= link_to truncate(post.description, length: 1000, omission: '... (continued)'), user_post_path(current_user, post)%></td>
         <td><%=l post.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
